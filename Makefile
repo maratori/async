@@ -26,6 +26,16 @@ bash: build-docker-dev ## run bash inside container for development
 	$(RUN_IN_DOCKER) bash
 .PHONY: bash
 
+check-tidy: ## ensure go.mod is tidy
+	@echo "+ $@"
+	cp go.mod go.check.mod
+	cp go.sum go.check.sum
+	go mod tidy -modfile=go.check.mod
+	diff -u go.mod go.check.mod
+	diff -u go.sum go.check.sum
+	rm go.check.mod go.check.sum
+.PHONY: check-tidy
+
 build-docker-dev: ## build development image from Dockerfile.dev
 	@echo "+ $@"
 	DOCKER_BUILDKIT=1 docker build --tag async:dev - < Dockerfile.dev
