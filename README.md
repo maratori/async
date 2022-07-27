@@ -1,5 +1,8 @@
 # async <br> [![CI][ci-img]][ci-link] [![Codecov][codecov-img]][codecov-link] [![License][license-img]][license-link] [![Go Reference][godoc-img]][godoc-link]
 
+## Contribution
+
+See [CONTRIBUTING.md](/.github/CONTRIBUTING.md)
 
 
 [ci-img]: https://github.com/maratori/async/actions/workflows/ci.yml/badge.svg
