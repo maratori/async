@@ -277,3 +277,5 @@ issues:
         - wrapcheck
 
     # specific to async
+    - path: "_test\\.go"
+      text: "underscores in Go names"
