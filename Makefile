@@ -1,7 +1,7 @@
 help: ## show this message
 	@echo "All commands can be run on local machine as well as inside dev container."
 	@echo ""
-	@echo "`grep -hE '^\S+:.*##' $(MAKEFILE_LIST) | sed -e 's/:.*##\s*/:/' | column -c2 -t -s :`"
+	@sed -nE 's/^ *([^[:blank:]]+)[[:blank:]]*:[^#]*##[[:blank:]]*(.+)/\1\n\2/p' $(MAKEFILE_LIST) | tr '\n' '\0' | xargs -0 -n 2 printf '%-25s%s\n'
 .PHONY: help
 
 .DEFAULT_GOAL := help
@@ -22,8 +22,10 @@ lint: build-docker-dev ## run linter
 .PHONY: lint
 
 bash: build-docker-dev ## run bash inside container for development
+ ifndef INSIDE_DEV_CONTAINER
 	@echo "+ $@"
 	$(RUN_IN_DOCKER) bash
+ endif
 .PHONY: bash
 
 check-tidy: ## ensure go.mod is tidy
@@ -37,12 +39,16 @@ check-tidy: ## ensure go.mod is tidy
 .PHONY: check-tidy
 
 build-docker-dev: ## build development image from Dockerfile.dev
+ ifndef INSIDE_DEV_CONTAINER
 	@echo "+ $@"
 	DOCKER_BUILDKIT=1 docker build --tag async:dev - < Dockerfile.dev
+ endif
 .PHONY: build-docker-dev
 
-RUN_IN_DOCKER = docker run --rm                                                                \
-                           -it                                                                 \
-                           -w /app                                                             \
-                           --mount type=bind,consistency=delegated,source="`pwd`",target=/app  \
-                           async:dev
+ifndef INSIDE_DEV_CONTAINER
+  RUN_IN_DOCKER = docker run --rm                                                                \
+                             -it                                                                 \
+                             -w /app                                                             \
+                             --mount type=bind,consistency=delegated,source="`pwd`",target=/app  \
+                             async:dev
+endif
