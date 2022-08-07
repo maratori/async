@@ -36,10 +36,10 @@ func NewExecutor() *Executor {
 }
 
 // Register returns a handler to call a method on the receiver.
-// The handler should be registered in jobs processor.
+// The handler should be registered in a jobs processor.
 //
 // Method is a func that takes receiver as the first input parameter.
-// The next input parameter may optionally be context.Context.
+// The next input parameter may optionally be [context.Context].
 // It optionally may return an error (or a type implementing error interface).
 //
 // Receiver should have the same type as the first parameter of the method.
@@ -115,7 +115,7 @@ func (e *Executor) Register( //nolint:gocognit // TODO: simplify
 
 // Prepare returns jobName and marshaled args to be enqueued.
 //
-// Arguments are serialized to be saved inside jobs storage.
+// Arguments are serialized to be saved inside a jobs storage.
 // It is a bad practice to use domain types as a transport ones directly.
 // So library limits allowed types as much as possible.
 // However, it still may be error-prone, see test "using iota is dangerous".

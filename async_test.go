@@ -24,10 +24,10 @@ func TestExecutor(t *testing.T) {
 			executor := async.NewExecutor()
 			_, err := executor.Register("job", domainService, DomainService.Struct__MyEnum__Nothing)
 			require.NoError(t, err)
-			// Under the hood MyEnumB is converted to `2` and is stored for the future execution.
-			// If someone adds/removes enum const before MyEnumB, it changes numbering (actual values of enums).
-			// It means that once job enqueued with argument `2` (meaning MyEnumB) will be executed with argument 2.
-			// But now it means not MyEnumB, but some different enum const.
+			// Under the hood [MyEnumB] is converted to `2` and is stored for the future execution.
+			// If someone adds/removes enum const before [MyEnumB], it changes numbering (actual values of enums).
+			// It means that once job enqueued with argument `2` (meaning [MyEnumB]) will be executed with argument 2.
+			// But now it means not [MyEnumB], but some different enum const.
 			_, args, err := executor.Prepare(DomainService.Struct__MyEnum__Nothing, MyEnumB)
 			require.NoError(t, err)
 			assert.JSONEq(t, `{"arg0":2,"type0":"int"}`, string(args))
