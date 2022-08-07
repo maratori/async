@@ -47,7 +47,7 @@ func NewExecutor() *Executor {
 //
 // You can't register the same jobName twice.
 // You can't register the same method twice.
-func (e *Executor) Register( // nolint:gocognit // TODO: simplify
+func (e *Executor) Register( //nolint:gocognit // TODO: simplify
 	jobName string,
 	receiver interface{},
 	method interface{},
@@ -98,7 +98,7 @@ func (e *Executor) Register( // nolint:gocognit // TODO: simplify
 				return errors.Errorf("args[%d]: wrong type: %s expected, received %s", i, expectedType, actualType)
 			}
 
-			args = append(args, marshalStruct.Field(i*2)) // nolint:gomnd // even numbers
+			args = append(args, marshalStruct.Field(i*2)) //nolint:gomnd // even numbers
 		}
 
 		res := methodVal.Call(args)
@@ -151,7 +151,7 @@ func (e *Executor) Prepare(method interface{}, args ...interface{}) (string, jso
 			return "", nil, errors.Errorf("args[%d]: expected %s, received %s", i, eType, aType)
 		}
 
-		marshalStruct.Field(i * 2).Set(reflect.ValueOf(args[i])) // nolint:gomnd // even numbers
+		marshalStruct.Field(i * 2).Set(reflect.ValueOf(args[i])) //nolint:gomnd // even numbers
 		marshalStruct.Field(1 + i*2).SetString(info.paramTypes[i])
 	}
 
@@ -192,7 +192,7 @@ func (e *Executor) validateAndGetMethodInfo(
 
 	receivesContext := false
 	returnsError := false
-	marshalFields := make([]reflect.StructField, 0, 2*method.NumIn()) // nolint:gomnd // param encoded with 2 fields
+	marshalFields := make([]reflect.StructField, 0, 2*method.NumIn()) //nolint:gomnd // param encoded with 2 fields
 	paramTypes := make([]string, 0, method.NumIn())
 	offset := 1
 
