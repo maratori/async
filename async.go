@@ -109,7 +109,7 @@ func (e *Executor) Register( //nolint:gocognit // TODO: simplify
 		if res[0].IsNil() {
 			return nil
 		}
-		return (res[0].Interface()).(error)
+		return (res[0].Interface()).(error) //nolint:errcheck // ok to panic
 	}, nil
 }
 
