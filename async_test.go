@@ -173,7 +173,7 @@ func TestExecutor(t *testing.T) {
 	})
 }
 
-type DomainService struct {
+type DomainService struct { //nolint:recvcheck // intentional mix receiver types
 	ch chan string
 }
 
