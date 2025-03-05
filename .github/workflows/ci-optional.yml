@@ -27,7 +27,7 @@ jobs:
         run: cp .github/latest-deps/go.mod go.mod && cp .github/latest-deps/go.sum go.sum
       - uses: actions/setup-go@v5
         with:
-          go-version: "1.24.0" # update together with Dockerfile.dev
+          go-version: "1.24.1" # update together with Dockerfile.dev
       - uses: golangci/golangci-lint-action@v6
         with:
           verify: true
