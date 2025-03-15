@@ -74,10 +74,10 @@ check-tidy: ## ensure go.mod is tidy
 	go mod tidy -diff -modfile=.github/latest-deps/go.mod
 .PHONY: check-tidy
 
-build-docker-dev: ## build development image from Dockerfile.dev
+build-docker-dev: ## build development image from dev.dockerfile
  ifndef INSIDE_DEV_CONTAINER
 	@echo "+ $@"
-	DOCKER_BUILDKIT=1 docker build --tag async:dev - < Dockerfile.dev
+	docker build --tag async:dev - < dev.dockerfile
  endif
 .PHONY: build-docker-dev
 
