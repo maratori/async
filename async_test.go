@@ -9,9 +9,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/maratori/async"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/maratori/async"
 )
 
 func TestExecutor(t *testing.T) {
@@ -49,7 +50,11 @@ func TestExecutor(t *testing.T) {
 			domainService := NewDomainService()
 			handler1, err := executor.Register("job1", domainService, DomainService.Struct__String__Nothing)
 			require.NoError(t, err)
-			handler2, err := executor.Register("job2", domainService, DomainService.OneMoreMethodSameSignature_Struct__String__Nothing) //nolint:lll
+			handler2, err := executor.Register(
+				"job2",
+				domainService,
+				DomainService.OneMoreMethodSameSignature_Struct__String__Nothing,
+			)
 			require.NoError(t, err)
 			name1, data1, err := executor.Prepare(DomainService.Struct__String__Nothing, arg)
 			require.NoError(t, err)
@@ -143,7 +148,13 @@ func TestExecutor(t *testing.T) {
 		t.Run("Struct__MyEmptyStruct_String__Nothing", func(t *testing.T) {
 			t.Parallel()
 			domainService := NewDomainService()
-			err := registerAndCall(t, domainService, DomainService.Struct__MyEmptyStruct_String__Nothing, MyEmptyStruct{}, "abc")
+			err := registerAndCall(
+				t,
+				domainService,
+				DomainService.Struct__MyEmptyStruct_String__Nothing,
+				MyEmptyStruct{},
+				"abc",
+			)
 			require.NoError(t, err)
 			requireSingleElemInChan(t, "abc", domainService.ch)
 		})
