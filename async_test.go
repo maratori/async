@@ -142,7 +142,7 @@ func TestExecutor(t *testing.T) {
 			domainService := NewDomainService()
 			err := registerAndCall(t, domainService, DomainService.Struct__Context_String__MyError, errorPrefix+"abc")
 			require.EqualError(t, err, "abc")
-			assert.IsType(t, new(MyError), err)
+			assert.IsType(t, new(MyError), err) //nolint:testifylint // should not be wrapped
 			requireChanIsEmpty(t, domainService.ch)
 		})
 		t.Run("Struct__MyEmptyStruct_String__Nothing", func(t *testing.T) {
