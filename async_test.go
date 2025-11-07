@@ -71,7 +71,7 @@ func TestExecutor(t *testing.T) {
 			})
 			requireSingleElemInChan(t, arg, domainService.ch)
 		})
-		registerAndCall := func(t *testing.T, receiver interface{}, method interface{}, args ...interface{}) error {
+		registerAndCall := func(t *testing.T, receiver any, method any, args ...any) error {
 			ctx := context.Background()
 			executor := async.NewExecutor()
 			handler, err := executor.Register("job name", receiver, method)

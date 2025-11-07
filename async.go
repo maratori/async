@@ -49,8 +49,8 @@ func NewExecutor() *Executor {
 // You can't register the same method twice.
 func (e *Executor) Register( //nolint:gocognit // TODO: simplify
 	jobName string,
-	receiver interface{},
-	method interface{},
+	receiver any,
+	method any,
 ) (func(context.Context, json.RawMessage) error, error) {
 	receiverVal := reflect.ValueOf(receiver)
 	methodVal := reflect.ValueOf(method)
@@ -119,7 +119,7 @@ func (e *Executor) Register( //nolint:gocognit // TODO: simplify
 // It is a bad practice to use domain types as a transport ones directly.
 // So library limits allowed types as much as possible.
 // However, it still may be error-prone, see test "using iota is dangerous".
-func (e *Executor) Prepare(method interface{}, args ...interface{}) (string, json.RawMessage, error) {
+func (e *Executor) Prepare(method any, args ...any) (string, json.RawMessage, error) {
 	methodType := reflect.TypeOf(method)
 	if methodType.Kind() != reflect.Func {
 		return "", nil, errors.Errorf("func expected, received %s", methodType)
