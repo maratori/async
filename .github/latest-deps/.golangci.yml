@@ -10,3 +10,12 @@ linters:
       - text: 'context.Background\(\) could be replaced by t.Context\(\) in TestExecutor' # remove after go 1.24+
         linters:
           - usetesting
+      - text: 'rangeint: for loop can be modernized using range over int' # remove after go 1.22+
+        linters:
+          - modernize
+      - text: 'reflecttypefor: reflect.TypeOf call can be simplified using TypeFor' # remove after go 1.22+
+        linters:
+          - modernize
+      - text: 'stringscutprefix: HasPrefix \+ TrimPrefix can be simplified to CutPrefix' # remove after go 1.20+
+        linters:
+          - modernize
