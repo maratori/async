@@ -1,6 +1,6 @@
 module github.com/maratori/async
 
-go 1.18 // minimal supported version 1.18, tested all versions up to 1.25
+go 1.18 // minimal supported version 1.18, tested all versions up to 1.26
 
 require (
 	github.com/pkg/errors v0.8.1
