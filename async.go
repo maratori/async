@@ -279,7 +279,7 @@ func (e *Executor) validateAndGetParameterTypeString(aType reflect.Type) (string
 
 	// types that may be supported in the future
 
-	case reflect.Slice, reflect.Array, reflect.Map, reflect.Interface, reflect.Ptr:
+	case reflect.Slice, reflect.Array, reflect.Map, reflect.Interface, reflect.Pointer:
 		return "", errors.Errorf("unsupported type %s", aType)
 
 	// unsupported
